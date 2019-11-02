@@ -8,7 +8,7 @@ def main():
 
     IoHandler.PrintArena(arena)
 
-    output = SearchAlgorithms.RunBfs(arena, taxi)
+    output = SearchAlgorithms.RunAlgo('IDS', arena, taxi)
 
 if __name__ == "__main__":
     main()

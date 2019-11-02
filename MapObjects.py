@@ -27,6 +27,9 @@ class Cell:
         self.destination = None
         self.directions = []
         self.taxi = None
+
+    def __lt__(ob1, ob2):
+        return False    
  
     def getNeighbours(self, arena):
         neighbours = []
