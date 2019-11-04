@@ -38,10 +38,10 @@ class IoHandler:
             budget = int(clientLineToks[4])
 
             client = Client(starty, startx, budget, i)
-            destination = Destination(endx, endy, i)
+            destination = Destination(endy, endx, i)
 
             clients.append(client)
-            destinations.append(destinations)
+            destinations.append(destination)
 
             (arena[starty][startx]).client = client
             (arena[endy][endx]).destination = destination

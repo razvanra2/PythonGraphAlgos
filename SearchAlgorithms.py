@@ -266,19 +266,24 @@ class SearchAlgorithms:
         while (True):
             startCell = arena[taxi.y][taxi.x]
             if (flavour == 'BFS'):
-                path = SearchAlgorithms.BFS(startCell, arena, taxi, destinationSearch)
+                path = SearchAlgorithms.BFS(startCell, arena,
+                    taxi, destinationSearch)
 
             if (flavour == 'UCS'):
-                path = SearchAlgorithms.UCS(startCell, arena, taxi, destinationSearch)
+                path = SearchAlgorithms.UCS(startCell, arena,
+                    taxi, destinationSearch)
 
             if (flavour == 'DFS'):
-                path = SearchAlgorithms.DFS(startCell, arena, taxi, destinationSearch)
+                path = SearchAlgorithms.DFS(startCell, arena, taxi,
+                    destinationSearch)
 
             if (flavour == 'DLS'):
-                path = SearchAlgorithms.DLS(startCell, arena, taxi, destinationSearch, 9)
+                path = SearchAlgorithms.DLS(startCell, arena, taxi,
+                    destinationSearch, 9)
 
             if (flavour == 'IDS'):
-                path = SearchAlgorithms.IDS(startCell, arena, taxi, destinationSearch)
+                path = SearchAlgorithms.IDS(startCell, arena, taxi,
+                    destinationSearch)
 
             if (len(path) == 0):
                 break
@@ -306,22 +311,28 @@ class SearchAlgorithms:
                     crtCell = eval(path[i])
                     nextCell = eval(path[i + 1])
 
-                    crtx,crty = crtCell
+                    actions.append(
+                        SearchAlgorithms.GetDirection(crtCell, nextCell))
+
+                    crtx,crty = nextCell
                     if (ispickUpTrip):
-                        nextClient = next((client.starty == crty and client.startx == crtx for client in clients), None)
-                        if (nextClient is not None and nextClient is not False):
+                        nextClient = next((client for client in clients
+                            if client.starty == crty
+                            and client.startx == crtx), None)
+                        if (nextClient is not None):
                             actions.append(PICKUP)
                             crtClient = nextClient
                             clients.remove(nextClient)
 
                     else:
-                        nextDestination = next((dest.endy == crty and dest.endx == crtx and dest.id == crtClient.id for dest in destinations), None)
-                        if (nextDestination is not None and nextDestination is not False):
+                        nextDestination = next((dest for dest in destinations
+                            if (dest.endy == crty and dest.endx == crtx 
+                            and dest.id == crtClient.id)), None)
+                        if (nextDestination is not None):
                             actions.append(DROPOFF)
                             crtClient = None
                             destinations.remove(nextDestination)
 
-                    actions.append(SearchAlgorithms.GetDirection(crtCell, nextCell))
             ispickUpTrip = not ispickUpTrip
 
         return (actions, fuelUsed)
