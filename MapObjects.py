@@ -15,7 +15,8 @@ NORTH = "N"
 SOUTH = "S"
 EAST = "E"
 WEST = "W"
-
+PICKUP = "Pickup"
+DROPOFF = "Dropoff"
 arena = None
 
 class Cell:

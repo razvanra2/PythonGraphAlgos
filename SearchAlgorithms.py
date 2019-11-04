@@ -286,6 +286,46 @@ class SearchAlgorithms:
                 print(path)
                 IoHandler.PrintArena(arena)
                 destinationSearch = not destinationSearch
+                allPaths.append(path)
+        return allPaths
+
+    @staticmethod
+    def DetermineSolution(paths, clients, destinations):
+        print(paths)
+
+        fuelUsed = 0
+        actions = []
+        ispickUpTrip = True
+        
+        for path in paths:
+            if path is not None:
+                fuelUsed += len(path)
+            
+                for i in range(len(path) - 1):
+                    crtCell = eval(path[i])
+                    nextCell = eval(path[i + 1])
+
+                    if (ispickUpTrip):
+                        crtx,crty = crtCell
+                        if (any(client.starty == crty and client.startx == crtx) for client in clients)):
 
 
+                    actions.append(SearchAlgorithms.GetDirection(crtCell, nextCell))
+            ispickUpTrip = not ispickUpTrip
 
+        return (actions, fuelUsed)
+
+    @staticmethod
+    def GetDirection(crt, nxt):
+        y1,x1 = crt
+        y2,x2 = nxt
+
+        if y2 == y1 - 1:
+            return NORTH
+        elif y2 == y1 + 1:
+            return SOUTH
+        elif x2 == x1 + 1:
+            return EAST
+        elif x2 == x1 - 1:
+            return WEST
+        return "INVALID MOVE"

@@ -25,6 +25,9 @@ class IoHandler:
         taxi = Taxi(carx, cary, capacity)
         arena[cary][carx].taxi = taxi
 
+        clients = []
+        destinations = []
+
         clientsCount = int(fileReader.readline())
         for i in range(clientsCount):
             clientLineToks = fileReader.readline().split(" ")
@@ -36,6 +39,9 @@ class IoHandler:
 
             client = Client(starty, startx, budget, i)
             destination = Destination(endx, endy, i)
+
+            clients.append(client)
+            destinations.append(destinations)
 
             (arena[starty][startx]).client = client
             (arena[endy][endx]).destination = destination
@@ -57,7 +63,7 @@ class IoHandler:
                 if (eastSeparator == ':'):
                     arena[i][j].directions.append(EAST)
         fileReader.close()
-        return (arena,taxi)
+        return (arena, taxi, clients, destinations)
     @staticmethod
     def PrintOutput(strategy, time, states, cost, solution):
         fileWriter = open(f'{strategy}_output.txt', "w")
