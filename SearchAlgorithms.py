@@ -296,19 +296,30 @@ class SearchAlgorithms:
         fuelUsed = 0
         actions = []
         ispickUpTrip = True
-        
+        crtClient = None
+
         for path in paths:
             if path is not None:
                 fuelUsed += len(path)
-            
+
                 for i in range(len(path) - 1):
                     crtCell = eval(path[i])
                     nextCell = eval(path[i + 1])
 
+                    crtx,crty = crtCell
                     if (ispickUpTrip):
-                        crtx,crty = crtCell
-                        if (any(client.starty == crty and client.startx == crtx) for client in clients)):
+                        nextClient = next((client.starty == crty and client.startx == crtx for client in clients), None)
+                        if (nextClient is not None and nextClient is not False):
+                            actions.append(PICKUP)
+                            crtClient = nextClient
+                            clients.remove(nextClient)
 
+                    else:
+                        nextDestination = next((dest.endy == crty and dest.endx == crtx and dest.id == crtClient.id for dest in destinations), None)
+                        if (nextDestination is not None and nextDestination is not False):
+                            actions.append(DROPOFF)
+                            crtClient = None
+                            destinations.remove(nextDestination)
 
                     actions.append(SearchAlgorithms.GetDirection(crtCell, nextCell))
             ispickUpTrip = not ispickUpTrip
