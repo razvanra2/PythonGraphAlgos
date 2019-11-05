@@ -1,5 +1,5 @@
 from MapObjects import *
-import emoji
+#import emoji
 class IoHandler:
     @staticmethod
     def ReadInputFile(filename):
@@ -37,7 +37,7 @@ class IoHandler:
             endx = int(clientLineToks[3])
             budget = int(clientLineToks[4])
 
-            client = Client(starty, startx, budget, i)
+            client = Client(starty, startx, budget, i, endy, endx)
             destination = Destination(endy, endx, i)
 
             clients.append(client)
@@ -79,14 +79,14 @@ class IoHandler:
     @staticmethod
     def GetArenaChar(cell):
         if (cell.taxi != None):
-            return emoji.emojize(':oncoming_taxi:')
+            #return emoji.emojize(':oncoming_taxi:')
             return 'T'
         elif (cell.destination != None):
-            return emoji.emojize(':thumbs_up:')
-            #return 'D'
+            #return emoji.emojize(':thumbs_up:')
+            return 'D'
         elif (cell.client != None):
-            return emoji.emojize(':boy:')
-            #return 'C'
+            #return emoji.emojize(':boy:')
+            return 'C'
         return ' '
 
     @staticmethod

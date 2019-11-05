@@ -1,8 +1,13 @@
 class Client:
-    def __init__(self, newStartx, newStarty, newBudget, newId):
+    def __init__(self,
+        newStartx, newStarty, newBudget, newId, newEndy, newEndx):
         self.startx = newStartx
         self.starty = newStarty
         self.budget = newBudget
+
+        self.endx = newEndx
+        self.endy = newEndy
+
         self.id = newId
 
 class Destination:
